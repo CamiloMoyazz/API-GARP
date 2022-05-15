@@ -1,20 +1,25 @@
 package cl.cyadev.app.DouceAmitie.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.math.BigDecimal;
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+@Table(name = "pasteles")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class Pastel {
+@Data
+public class Pastel implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idPastel")
     private int idPastel;
+    @Column(name = "nombre")
     private String nombre;
+    @Column(name = "descripcion")
     private String descripcion;
+    @Column(name = "precio")
     private int precio;
 
     @Override

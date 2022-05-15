@@ -1,25 +1,24 @@
 package cl.cyadev.app.DouceAmitie.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class Pedido {
     private int idPedido;
     private String nombreCliente;
     private String apellidoPaternoCliente;
     private String apellidoMaternoCliente;
     private String telefonoContacto;
+
     private String direccionEntrega;
-    private LocalDate fechaEntrega;
+
+    private Date fechaEntrega;
     private Pastel pastel;
     private int cantidadPedido;
     private String observacionesPedido;

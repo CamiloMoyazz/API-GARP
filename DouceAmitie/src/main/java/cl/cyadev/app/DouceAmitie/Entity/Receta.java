@@ -1,23 +1,33 @@
 package cl.cyadev.app.DouceAmitie.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jdk.jfr.DataAmount;
+import lombok.*;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.File;
+import java.io.Serializable;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class Receta {
+@Data
+public class Receta implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idReceta")
     private int idReceta;
-    private File imagen;
+    @Column(name = "urlImagen")
+    private String imagen;
+    @Column(name = "nombre")
     private String nombre;
+    @Column(name = "ingredientes")
     private List<String> ingredientes;
+    @Column(name = "preparacion")
     private List<String> preparacion;
+    @Column(name = "urlVideo")
     private String urlVideo;
     @Override
     public String toString() {
