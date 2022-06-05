@@ -6,42 +6,24 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 
+@Entity
+@Table(name = "pedidos")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Pedido {
-    private int idPedido;
-    private String nombreCliente;
-    private String apellidoPaternoCliente;
-    private String apellidoMaternoCliente;
-    private String telefonoContacto;
 
-    private String direccionEntrega;
-
-    private Date fechaEntrega;
-    private Pastel pastel;
-    private int cantidadPedido;
-    private String observacionesPedido;
-    private String observacionesEntrega;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id_Pedido;
+    private String direccion_Entrega;
+    private String fecha_Entrega;
+    private int costo_Total;
+    private String observaciones_Pedido;
+    private String observaciones_Entrega;
     private String estado;
-    private Trabajador encargado;
+    private String rut_Cliente;
+    private String rut_Trabajador;
 
-    @Override
-    public String toString() {
-        return "Pedido{" +
-                "idPedido=" + idPedido +
-                ", nombreCliente='" + nombreCliente + '\'' +
-                ", apellidoPaternoCliente='" + apellidoPaternoCliente + '\'' +
-                ", apellidoMaternoCliente='" + apellidoMaternoCliente + '\'' +
-                ", telefonoContacto='" + telefonoContacto + '\'' +
-                ", direccionEntrega='" + direccionEntrega + '\'' +
-                ", fechaEntrega=" + fechaEntrega +
-                ", pastel=" + pastel +
-                ", cantidadPedido=" + cantidadPedido +
-                ", observacionesPedido='" + observacionesPedido + '\'' +
-                ", observacionesEntrega='" + observacionesEntrega + '\'' +
-                ", estado='" + estado + '\'' +
-                ", encargado=" + encargado.getNombre() + encargado.getApellidoPaterno() +
-                '}';
-    }
+
 }

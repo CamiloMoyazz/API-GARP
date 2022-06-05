@@ -16,7 +16,6 @@ public class TrabajadorServiceImpl implements TrabajadorService{
     @Autowired
     @Qualifier("trabajadorRepository")
     private TrabajadorRepository repository;
-
     @Override
     public String save(Trabajador trabajador) {
 
@@ -28,13 +27,11 @@ public class TrabajadorServiceImpl implements TrabajadorService{
         }
 
     }
-
     @Override
     public String delete(Trabajador trabajador) {
         repository.deleteById(trabajador.getRut());
         return "Eliminado con Exito!";
     }
-
     @Override
     public String update(Trabajador trabajador) {
 
@@ -44,17 +41,23 @@ public class TrabajadorServiceImpl implements TrabajadorService{
             return "Actualizado con Exito!";
 
     }
-
     @Override
     public List<Trabajador> getAll() {
         return repository.findAll();
     }
-
     @Override
     public Trabajador getById(String rut) {
         return repository.getById(rut);
     }
 
+    @Override
+    public Boolean existeTrabajador(String rut) {
+        if(find(rut).isPresent()){
+            return true;
+        }else {
+            return false;
+        }
+    }
     @Override
     public Optional<Trabajador> find(String rut) {
         return repository.findById(rut);

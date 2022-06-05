@@ -11,5 +11,6 @@ public interface TrabajadorService {
     String update(Trabajador trabajador);
     List<Trabajador> getAll();
     Trabajador getById(String rut);
+    Boolean existeTrabajador(String rut);
     Optional<Trabajador> find(String rut);
 }

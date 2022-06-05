@@ -1,14 +1,16 @@
 package cl.cyadev.app.DouceAmitie.DaoService;
 
 import cl.cyadev.app.DouceAmitie.Entity.Cliente;
+import cl.cyadev.app.DouceAmitie.Entity.Pedido;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ClienteService {
-    Cliente save(Cliente cliente);
-    Cliente delete(String rut);
-    Cliente update(Cliente cliente);
-    List<Cliente> clienteList();
+    String save(Cliente cliente);
+    String delete(Cliente cliente);
+    String update(Cliente cliente);
+    List<Cliente> getAll();
+    Cliente getById(String rut);
     Optional<Cliente> find(String rut);
 }
