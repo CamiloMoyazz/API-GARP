@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TrabajadorService {
-    Trabajador save(Trabajador trabajador);
-    Trabajador delete(String rut);
-    Trabajador update(Trabajador trabajador);
+    String save(Trabajador trabajador);
+    String delete(Trabajador trabajador);
+    String update(Trabajador trabajador);
     List<Trabajador> getAll();
-    Optional<Trabajador> find();
+    Trabajador getById(String rut);
+    Optional<Trabajador> find(String rut);
 }

@@ -3,16 +3,14 @@ package cl.cyadev.app.DouceAmitie.Entity;
 import jdk.jfr.DataAmount;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "recetas")
 @Data
 public class Receta implements Serializable {
     @Id

@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Table(name = "trabajadores")
@@ -20,15 +19,17 @@ public class Trabajador implements Serializable {
     private String rut;
     @Column(name = "nombre")
     private String nombre;
-    @Column(name = "apellidoMaterno")
-    private String apellidoMaterno;
-    @Column(name = "apellidoPaterno")
+    @Column(name = "apellido_Paterno")
     private String apellidoPaterno;
+    @Column(name = "apellido_Materno")
+    private String apellidoMaterno;
+
     @Column(name = "password")
     private String password;
-    @Column(name = "fechaIngreso")
-    private Date fechaIngreso;
-    @Column(name = "idRol")
+
+    @Column(name = "fecha_Ingreso")
+    private String fechaIngreso;
+    @Column(name = "id_Rol")
     private int permisos;
     @Override
     public String toString() {

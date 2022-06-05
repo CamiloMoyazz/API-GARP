@@ -16,9 +16,9 @@ public class Cliente implements Serializable {
     private String rut;
     @Column(name = "nombre")
     private String nombre;
-    @Column(name = "apellidoPaterno")
+    @Column(name = "apellido_Paterno")
     private String apellidoPaterno;
-    @Column(name = "apellidoMaterno")
+    @Column(name = "apellido_Materno")
     private String apellidoMaterno;
     @Column(name = "telefono")
     private String telefono;
