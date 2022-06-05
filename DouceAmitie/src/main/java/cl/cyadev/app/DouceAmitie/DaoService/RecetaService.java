@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RecetaService {
-    Receta save(Receta receta);
-    Receta delete(int id);
-    Receta update(Receta receta);
-    List<Receta> recetaList();
-    Optional<Receta> find();
+    String save(Receta receta);
+    String delete(int id);
+    String update(Receta receta);
+    List<Receta> getRecetas();
+    Optional<Receta> find(int id);
 }

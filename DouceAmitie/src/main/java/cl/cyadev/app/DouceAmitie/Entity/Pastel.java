@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Pastel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idPastel")
+    @Column(name = "id_Pastel")
     private int idPastel;
     @Column(name = "nombre")
     private String nombre;

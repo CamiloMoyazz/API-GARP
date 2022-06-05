@@ -8,25 +8,29 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
+@Entity
+@Table(name = "recetas")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "recetas")
 @Data
 public class Receta implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idReceta")
+    @Column(name = "id_Receta")
     private int idReceta;
-    @Column(name = "urlImagen")
+    @Column(name = "url_Imagen")
     private String imagen;
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "ingredientes")
-    private List<String> ingredientes;
+    private String ingredientes;
     @Column(name = "preparacion")
-    private List<String> preparacion;
-    @Column(name = "urlVideo")
+    private String preparacion;
+    @Column(name = "url_Video")
     private String urlVideo;
+
+    @Column(name = "id_Pastel")
+    private int id_Pastel;
     @Override
     public String toString() {
         return "Pastel{" +

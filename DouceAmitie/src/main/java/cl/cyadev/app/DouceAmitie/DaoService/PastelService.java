@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PastelService {
-    Pastel save(Pastel pastel);
-    Pastel delete(int id);
-    Pastel update(Pastel pastel);
-    List<Pastel> pastelList();
-    Optional<Pastel> find();
+    String save(Pastel pastel);
+    String delete(int id);
+    String update(Pastel pastel);
+    List<Pastel> getAll();
+    Optional<Pastel> find(int id);
 }
