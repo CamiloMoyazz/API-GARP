@@ -1,7 +1,9 @@
 package cl.cyadev.app.DouceAmitie.Controllers;
 
 import cl.cyadev.app.DouceAmitie.DaoService.ClienteService;
+import cl.cyadev.app.DouceAmitie.DaoService.DatosPedidoService;
 import cl.cyadev.app.DouceAmitie.Entity.Cliente;
+import cl.cyadev.app.DouceAmitie.Entity.DatosPedido;
 import cl.cyadev.app.DouceAmitie.Entity.Pedido;
 import cl.cyadev.app.DouceAmitie.Entity.Trabajador;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,12 @@ public class Pedidos {
     @Qualifier("clienteService")
     private ClienteService service;
 
+    @Autowired
+    @Qualifier("datosPedidoService")
+    private DatosPedidoService servicePedidos;
+
+    @GetMapping("/datosPedidos")
+    public List<DatosPedido> getAllDatos(){return servicePedidos.datosPedido();}
     @GetMapping("/hola")
     public String hola(){
         return "Hola desde Pedidos!";
