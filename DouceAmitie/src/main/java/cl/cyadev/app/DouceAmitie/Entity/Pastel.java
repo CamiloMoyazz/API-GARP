@@ -22,6 +22,9 @@ public class Pastel implements Serializable {
     @Column(name = "precio")
     private int precio;
 
+    @Transient
+    private int cantidad;
+
     @Override
     public String toString() {
         return "Pastel{" +

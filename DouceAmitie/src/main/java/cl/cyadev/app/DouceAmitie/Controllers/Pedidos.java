@@ -26,12 +26,18 @@ public class Pedidos {
     @Qualifier("datosPedidoService")
     private DatosPedidoService servicePedidos;
 
-    @GetMapping("/datosPedidos")
-    public List<DatosPedido> getAllDatos(){return servicePedidos.datosPedido();}
     @GetMapping("/hola")
     public String hola(){
         return "Hola desde Pedidos!";
     }
+
+    // ----- SECCION PEDIDOS --------
+    @GetMapping("/datosPedidos")
+    public List<DatosPedido> getAllDatos(){return servicePedidos.datosPedido();}
+
+
+
+    // ------ SECCION CLIENTES -------
 
     @GetMapping("/getClientes")
     public List<Cliente> getAll(){
@@ -48,20 +54,4 @@ public class Pedidos {
         }
     }
 
-    @PutMapping("/actualizarCliente")
-    public String Actualizar(@RequestBody Cliente c){
-        try{
-            service.update(c);
-            return "EXITO!";
-        }catch (Exception ex){
-            return "ERROR!";
-        }
-    }
-
-
-//    @DeleteMapping("/eliminarCliente/{rut}")
-//    public String Eliminar(@PathVariable String rut){
-//        Cliente c = service.getById(rut);
-//
-//    }
 }
