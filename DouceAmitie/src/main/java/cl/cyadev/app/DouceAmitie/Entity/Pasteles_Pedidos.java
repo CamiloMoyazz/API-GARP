@@ -24,6 +24,6 @@ public class Pasteles_Pedidos {
     private int cantidad;
     @Column(name = "valor_Pedido")
     private int valor;
-    @Column(name = "pedidos_idPedido")
-    private int pedidos_idPedido;
+    @Column(name = "Pedido")
+    private int Pedido;
 }

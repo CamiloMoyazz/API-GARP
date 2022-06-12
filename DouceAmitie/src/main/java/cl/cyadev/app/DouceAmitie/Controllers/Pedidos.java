@@ -2,10 +2,9 @@ package cl.cyadev.app.DouceAmitie.Controllers;
 
 import cl.cyadev.app.DouceAmitie.DaoService.ClienteService;
 import cl.cyadev.app.DouceAmitie.DaoService.DatosPedidoService;
-import cl.cyadev.app.DouceAmitie.Entity.Cliente;
-import cl.cyadev.app.DouceAmitie.Entity.DatosPedido;
-import cl.cyadev.app.DouceAmitie.Entity.Pedido;
-import cl.cyadev.app.DouceAmitie.Entity.Trabajador;
+import cl.cyadev.app.DouceAmitie.DaoService.PastelesPedidoService;
+import cl.cyadev.app.DouceAmitie.Entity.*;
+import cl.cyadev.app.DouceAmitie.Repository.PastelesPedidosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -26,10 +25,19 @@ public class Pedidos {
     @Qualifier("datosPedidoService")
     private DatosPedidoService servicePedidos;
 
+    @Autowired
+    @Qualifier("pastelesPedidos")
+    private PastelesPedidoService servicePasteles;
+
+    @Autowired
+    @Qualifier("pastelesPedidosRepository")
+    private PastelesPedidosRepository repoPastel;
+
     @GetMapping("/hola")
     public String hola(){
         return "Hola desde Pedidos!";
     }
+
 
     // ----- SECCION PEDIDOS --------
     @GetMapping("/datosPedidos")

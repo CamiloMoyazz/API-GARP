@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("datosPedidoService")
 public class DatosPedidoImp implements DatosPedidoService{
@@ -17,5 +18,28 @@ public class DatosPedidoImp implements DatosPedidoService{
     @Override
     public List<DatosPedido> datosPedido() {
         return repository.findAll();
+    }
+    @Override
+    public String save(DatosPedido datosPedido) {
+        repository.save(datosPedido);
+        return "Exito!";
+    }
+    @Override
+    public String update(DatosPedido datosPedido) {
+        if(findDatosPedido(datosPedido.getId()).isPresent()){
+            repository.save(datosPedido);
+            return "Exito!";
+        }else {
+            return "ERROR!";
+        }
+    }
+    @Override
+    public String delete(int id) {
+        repository.deleteById(id);
+        return "ELIMINADO!";
+    }
+    @Override
+    public Optional<DatosPedido> findDatosPedido(int id) {
+        return repository.findById(id);
     }
 }
