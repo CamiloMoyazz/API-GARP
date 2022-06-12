@@ -19,6 +19,12 @@ public class DatosPedidoImp implements DatosPedidoService{
     public List<DatosPedido> datosPedido() {
         return repository.findAll();
     }
+
+    @Override
+    public int ultimoIdPedido() {
+        return repository.ultimoIdPedido();
+    }
+
     @Override
     public String save(DatosPedido datosPedido) {
         repository.save(datosPedido);

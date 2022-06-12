@@ -14,7 +14,6 @@ import javax.persistence.*;
 public class DatosPedido {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_Pedido")
     private int id;
     @Column(name = "direccion_Entrega")

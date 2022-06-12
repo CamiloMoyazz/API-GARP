@@ -18,26 +18,30 @@ public class PastelesPedidoServiceImpl implements PastelesPedidoService{
 
     @Override
     public List<Pasteles_Pedidos> getAllByPedido(int id) {
-        return null;
+        return repository.findByPedido(id);
     }
 
     @Override
-    public String save(Pasteles_Pedidos p) {
-        return null;
+    public String save(Pasteles_Pedidos pasteles_pedidos) {
+        repository.save(pasteles_pedidos);
+        return "EXITO!";
     }
-
     @Override
     public String update(Pasteles_Pedidos p) {
-        return null;
+        if(find(p.getId_Pedido_Pastel()).isPresent()){
+            repository.save(p);
+        }
+        return "EXITO!";
     }
 
     @Override
     public String Delete(int idPedido) {
-        return null;
+        repository.deletePastelesPedido(idPedido);
+        return "ELIMINADO!";
     }
 
     @Override
-    public Optional<Pasteles_Pedidos> find(int idPedido) {
-        return Optional.empty();
+    public Optional<Pasteles_Pedidos> find(int id) {
+        return repository.findById(id);
     }
 }

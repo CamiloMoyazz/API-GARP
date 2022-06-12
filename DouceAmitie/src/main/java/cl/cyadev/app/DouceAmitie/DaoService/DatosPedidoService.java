@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface DatosPedidoService {
     List<DatosPedido> datosPedido();
+    int ultimoIdPedido();
     String save(DatosPedido datosPedido);
     String update(DatosPedido datosPedido);
     String delete(int id);

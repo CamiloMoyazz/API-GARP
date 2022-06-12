@@ -3,6 +3,7 @@ package cl.cyadev.app.DouceAmitie.Controllers;
 import cl.cyadev.app.DouceAmitie.DaoService.ClienteService;
 import cl.cyadev.app.DouceAmitie.DaoService.DatosPedidoService;
 import cl.cyadev.app.DouceAmitie.DaoService.PastelesPedidoService;
+import cl.cyadev.app.DouceAmitie.DaoService.PedidosService;
 import cl.cyadev.app.DouceAmitie.Entity.*;
 import cl.cyadev.app.DouceAmitie.Repository.PastelesPedidosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,35 @@ public class Pedidos {
     @Qualifier("pastelesPedidosRepository")
     private PastelesPedidosRepository repoPastel;
 
+    @Autowired
+    @Qualifier("pedidosService")
+    private PedidosService pedidosService;
+
     @GetMapping("/hola")
     public String hola(){
         return "Hola desde Pedidos!";
     }
 
+    @GetMapping("/getPedidos")
+    public List<Pedido> getPedidos(){
+        return pedidosService.getAllPedidos();
+    }
 
     // ----- SECCION PEDIDOS --------
     @GetMapping("/datosPedidos")
     public List<DatosPedido> getAllDatos(){return servicePedidos.datosPedido();}
 
+    @PostMapping("/ingresarPedido")
+    public String ingresarPedido(@RequestBody Pedido pedido){
+        pedidosService.savePedido(pedido);
+        return "EXITO!";
+    }
 
+    @PutMapping("/actualizarPedido")
+    public String actualizarPedido(@RequestBody Pedido pedido){
+        pedidosService.updatePedido(pedido);
+        return "EXITO ACTUALIZADO!";
+    }
 
     // ------ SECCION CLIENTES -------
 

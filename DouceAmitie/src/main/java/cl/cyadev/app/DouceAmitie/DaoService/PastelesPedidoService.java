@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface PastelesPedidoService {
     List<Pasteles_Pedidos> getAllByPedido(int id);
-    String save(Pasteles_Pedidos p);
+    String save(Pasteles_Pedidos pasteles_pedidos);
     String update(Pasteles_Pedidos p);
     String Delete(int idPedido);
     Optional<Pasteles_Pedidos> find(int idPedido);

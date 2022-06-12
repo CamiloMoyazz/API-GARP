@@ -1,6 +1,7 @@
 package cl.cyadev.app.DouceAmitie.DaoService;
 
 import cl.cyadev.app.DouceAmitie.Entity.DatosPedido;
+import cl.cyadev.app.DouceAmitie.Entity.Pasteles_Pedidos;
 import cl.cyadev.app.DouceAmitie.Entity.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,6 +26,10 @@ public class PedidosServiceImpl implements PedidosService{
     @Qualifier("trabajadorService")
     private TrabajadorService trabajadorService;
 
+    @Autowired
+    @Qualifier("pastelesPedidos")
+    private PastelesPedidoService pastelesPedidoService;
+
 
     @Override
     public List<Pedido> getAllPedidos() {
@@ -39,26 +44,76 @@ public class PedidosServiceImpl implements PedidosService{
             pe.setDireccion_Entrega(p.getDireccion());
             pe.setFecha_Entrega(p.getFecha());
             //Recorremos Pasteles que van en el pedido
-
+            pe.setPasteles(pastelesPedidoService.getAllByPedido(p.getId()));
             pe.setObservaciones_Pedido(p.getObservaciones_Pedido());
             pe.setObservaciones_Entrega(p.getObservaciones_Entrega());
             pe.setEstado(p.getEstado());
             pe.setEncargado(trabajadorService.getById(p.getRut_Trabajador()));
-
+            pe.getEncargado().setPassword(null);
             pedidos.add(pe);
         }
-
-        return null;
+        return pedidos;
     }
 
     @Override
     public String savePedido(Pedido pedido) {
-        return null;
+        int costoTotal = 0;
+        DatosPedido datos = new DatosPedido();
+        datos.setId(datosService.ultimoIdPedido()+1);
+        datos.setDireccion(pedido.getDireccion_Entrega());
+        datos.setFecha(pedido.getFecha_Entrega());
+        List<Pasteles_Pedidos> pasteles = pedido.getPasteles();
+        for (Pasteles_Pedidos p : pasteles){
+            costoTotal+=p.getValor();
+        }
+        datos.setCosto(costoTotal);
+        datos.setObservaciones_Pedido(pedido.getObservaciones_Pedido());
+        datos.setObservaciones_Entrega(pedido.getObservaciones_Entrega());
+        datos.setEstado(pedido.getEstado());
+        datos.setRut_Cliente(pedido.getCliente().getRut());
+        datos.setRut_Trabajador(pedido.getEncargado().getRut());
+
+        System.out.println(datos);
+        datosService.save(datos);
+        for (Pasteles_Pedidos p : pasteles){
+            p.setPedido(datos.getId());
+            pastelesPedidoService.save(p);
+       }
+        return "Exito!";
     }
 
     @Override
     public String updatePedido(Pedido pedido) {
-        return null;
+        if(findPedido(pedido.getId_Pedido()).isPresent()){
+            int costoTotal = 0;
+            DatosPedido datos = new DatosPedido();
+            datos.setId(pedido.getId_Pedido());
+            datos.setDireccion(pedido.getDireccion_Entrega());
+            datos.setFecha(pedido.getFecha_Entrega());
+            List<Pasteles_Pedidos> pasteles = pedido.getPasteles();
+            for (Pasteles_Pedidos p : pasteles){
+                costoTotal+=p.getValor();
+            }
+            datos.setCosto(costoTotal);
+            datos.setObservaciones_Pedido(pedido.getObservaciones_Pedido());
+            datos.setObservaciones_Entrega(pedido.getObservaciones_Entrega());
+            datos.setEstado(pedido.getEstado());
+            datos.setRut_Cliente(pedido.getCliente().getRut());
+            datos.setRut_Trabajador(pedido.getEncargado().getRut());
+
+            System.out.println(datos);
+            datosService.save(datos);
+            for (Pasteles_Pedidos p : pasteles){
+                p.setPedido(datos.getId());
+                pastelesPedidoService.save(p);
+            }
+            datosService.save(datos);
+
+            return "ACTUALIZADO";
+        }else {
+            return "ERROR!";
+        }
+
     }
 
     @Override
@@ -67,7 +122,7 @@ public class PedidosServiceImpl implements PedidosService{
     }
 
     @Override
-    public Optional<Pedido> findPedido(int id) {
-        return Optional.empty();
+    public Optional<DatosPedido> findPedido(int id) {
+        return datosService.findDatosPedido(id);
     }
 }
