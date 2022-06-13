@@ -8,26 +8,18 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "gastosdiarios")
+@Table(name = "gastos_diarios")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class GastoDiario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idGastoDiario")
+    @Column(name = "id_Gasto_Diario")
     private int id;
-    @Column(name = "gastoDiario")
+    @Column(name = "gasto_Diario")
     private int gastoDiario;
-    @Column(name = "fechaGasto")
-    private Date fechaGasto;
+    @Column(name = "fecha_Gasto")
+    private String fechaGasto;
 
-    @Override
-    public String toString() {
-        return "GastoDiario{" +
-                "id=" + id +
-                ", gastoDiario=" + gastoDiario +
-                ", fechaGasto=" + fechaGasto +
-                '}';
-    }
 }

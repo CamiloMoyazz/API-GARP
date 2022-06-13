@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GananciaService {
-    GananciaDiaria save(GananciaDiaria ganancia);
-    GananciaDiaria delete(int id);
-    GananciaDiaria update(GananciaDiaria ganancia);
-    List<GananciaDiaria> gananciaDiariaList();
+    String save(GananciaDiaria ganancia);
+    String delete(int id);
+    String update(GananciaDiaria ganancia);
+    List<GananciaDiaria> getAllGanancias();
+    List<GananciaDiaria> getByMes(String fecha);
     Optional<GananciaDiaria> find(int id);
 }

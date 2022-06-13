@@ -118,7 +118,14 @@ public class PedidosServiceImpl implements PedidosService{
 
     @Override
     public String deletePedido(int id) {
-        return null;
+        if(findPedido(id).isPresent()){
+            pastelesPedidoService.Delete(id);
+            datosService.delete(id);
+            return "EXITO!";
+        }else{
+            return "Error";
+        }
+
     }
 
     @Override

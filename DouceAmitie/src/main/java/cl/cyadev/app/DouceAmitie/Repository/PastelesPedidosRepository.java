@@ -2,9 +2,11 @@ package cl.cyadev.app.DouceAmitie.Repository;
 
 import cl.cyadev.app.DouceAmitie.Entity.Pasteles_Pedidos;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,6 +14,8 @@ import java.util.List;
 public interface PastelesPedidosRepository extends JpaRepository<Pasteles_Pedidos, Serializable> {
    @Query(value = "SELECT * FROM pedidos_pasteles WHERE Pedido = ?1", nativeQuery = true)
     List<Pasteles_Pedidos> findByPedido(int Pedido);
+   @Modifying
+   @Transactional
    @Query(value = "DELETE FROM pedidos_pasteles WHERE Pedido = ?1",nativeQuery = true)
     void deletePastelesPedido(int id);
 }

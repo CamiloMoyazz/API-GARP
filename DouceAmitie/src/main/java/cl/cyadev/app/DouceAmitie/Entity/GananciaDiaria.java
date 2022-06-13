@@ -1,9 +1,6 @@
 package cl.cyadev.app.DouceAmitie.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,27 +8,18 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "gananciasdiarias")
+@Table(name = "ganancias_diarias")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class GananciaDiaria implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idGananciaDiaria")
+    @Column(name = "id_ganancia_diaria")
     private int id;
-    @Column(name = "gananciaDiaria")
+    @Column(name = "ganancia_diaria")
     private int gananciaDiaria;
-    @Column(name = "fechaGanancia")
-    private Date fechaGanancia;
+    @Column(name = "fecha_ganancia")
+    private String fechaGanancia;
 
-    @Override
-    public String toString() {
-        return "GananciaDiaria{" +
-                "id=" + id +
-                ", gananciaDiaria=" + gananciaDiaria +
-                ", fechaGanancia=" + fechaGanancia +
-                '}';
-    }
 }

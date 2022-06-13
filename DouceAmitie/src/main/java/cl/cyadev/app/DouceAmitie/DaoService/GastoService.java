@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GastoService {
-    GastoDiario save(GastoDiario gasto);
-    GastoDiario delete(int id);
-    GastoDiario update(GastoDiario gasto);
-    List<GastoDiario> gastoDiarioList();
-    Optional<GastoDiario> find();
+    String save(GastoDiario gasto);
+    String delete(int id);
+    String update(GastoDiario gasto);
+    List<GastoDiario> getGastos();
+    List<GastoDiario> getGastosByMes(String fecha);
+    Optional<GastoDiario> find(int id);
 }

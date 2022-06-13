@@ -64,6 +64,12 @@ public class Pedidos {
         return "EXITO ACTUALIZADO!";
     }
 
+    @DeleteMapping("/eliminarPedido/{id}")
+    public String eliminarPedido(@PathVariable int id){
+        pedidosService.deletePedido(id);
+        return "ELIMINADO!";
+    }
+
     // ------ SECCION CLIENTES -------
 
     @GetMapping("/getClientes")
