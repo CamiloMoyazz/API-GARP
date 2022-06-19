@@ -1,8 +1,6 @@
 package cl.cyadev.app.DouceAmitie.DaoService;
 
-import cl.cyadev.app.DouceAmitie.Entity.DatosPedido;
-import cl.cyadev.app.DouceAmitie.Entity.Pasteles_Pedidos;
-import cl.cyadev.app.DouceAmitie.Entity.Pedido;
+import cl.cyadev.app.DouceAmitie.Entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -18,6 +16,9 @@ public class PedidosServiceImpl implements PedidosService{
     @Qualifier("datosPedidoService")
     private DatosPedidoService datosService;
 
+    @Autowired
+    @Qualifier("pastelService")
+    private PastelService pastelService;
     @Autowired
     @Qualifier("clienteService")
     private ClienteService clienteService;
@@ -38,18 +39,35 @@ public class PedidosServiceImpl implements PedidosService{
 
         //Recorremos la lista de datos
         for(DatosPedido p : datosPedidos){
+            Cliente c = clienteService.getById(p.getRut_Cliente());
+            Trabajador t = trabajadorService.getById(p.getRut_Trabajador());
+            List<String> pasteles = new ArrayList<>();
+            int total =0;
+
+
+
+            //Creacion de Pedido
             Pedido pe = new Pedido();
             pe.setId_Pedido(p.getId());
-            pe.setCliente(clienteService.getById(p.getRut_Cliente()));
+            pe.setDatos_cliente(c.getRut()+
+                    ","+c.getNombre()+""+c.getApellidoPaterno()+
+                    ","+c.getEmail()+
+                    ","+c.getTelefono());
             pe.setDireccion_Entrega(p.getDireccion());
             pe.setFecha_Entrega(p.getFecha());
-            //Recorremos Pasteles que van en el pedido
             pe.setPasteles(pastelesPedidoService.getAllByPedido(p.getId()));
+            //Recorremos Pasteles que van en el pedido
+            for (Pasteles_Pedidos pape : pastelesPedidoService.getAllByPedido(p.getId())){
+                Pastel pas = pastelService.getPastelById(pape.getId_Pastel());
+                pasteles.add(pas.getNombre());
+                total += pape.getValor();
+            }
+            pe.setValor_total(total);
+            pe.setNombresPasteles(pasteles);
             pe.setObservaciones_Pedido(p.getObservaciones_Pedido());
-            pe.setObservaciones_Entrega(p.getObservaciones_Entrega());
             pe.setEstado(p.getEstado());
-            pe.setEncargado(trabajadorService.getById(p.getRut_Trabajador()));
-            pe.getEncargado().setPassword(null);
+            pe.setDatos_encargado(t.getRut()+
+                    ","+t.getNombre()+""+t.getApellidoPaterno());
             pedidos.add(pe);
         }
         return pedidos;
@@ -58,8 +76,13 @@ public class PedidosServiceImpl implements PedidosService{
     @Override
     public String savePedido(Pedido pedido) {
         int costoTotal = 0;
+
+        //Creamos los datos para la BD
         DatosPedido datos = new DatosPedido();
+
         datos.setId(datosService.ultimoIdPedido()+1);
+        datos.setRut_Cliente(pedido.getDatos_cliente());
+        datos.setRut_Trabajador(pedido.getDatos_encargado());
         datos.setDireccion(pedido.getDireccion_Entrega());
         datos.setFecha(pedido.getFecha_Entrega());
         List<Pasteles_Pedidos> pasteles = pedido.getPasteles();
@@ -68,10 +91,7 @@ public class PedidosServiceImpl implements PedidosService{
         }
         datos.setCosto(costoTotal);
         datos.setObservaciones_Pedido(pedido.getObservaciones_Pedido());
-        datos.setObservaciones_Entrega(pedido.getObservaciones_Entrega());
         datos.setEstado(pedido.getEstado());
-        datos.setRut_Cliente(pedido.getCliente().getRut());
-        datos.setRut_Trabajador(pedido.getEncargado().getRut());
 
         System.out.println(datos);
         datosService.save(datos);
@@ -86,8 +106,12 @@ public class PedidosServiceImpl implements PedidosService{
     public String updatePedido(Pedido pedido) {
         if(findPedido(pedido.getId_Pedido()).isPresent()){
             int costoTotal = 0;
+
+            //Creamos los datos para la BD
             DatosPedido datos = new DatosPedido();
             datos.setId(pedido.getId_Pedido());
+            datos.setRut_Cliente(pedido.getDatos_cliente());
+            datos.setRut_Trabajador(pedido.getDatos_encargado());
             datos.setDireccion(pedido.getDireccion_Entrega());
             datos.setFecha(pedido.getFecha_Entrega());
             List<Pasteles_Pedidos> pasteles = pedido.getPasteles();
@@ -96,18 +120,18 @@ public class PedidosServiceImpl implements PedidosService{
             }
             datos.setCosto(costoTotal);
             datos.setObservaciones_Pedido(pedido.getObservaciones_Pedido());
-            datos.setObservaciones_Entrega(pedido.getObservaciones_Entrega());
             datos.setEstado(pedido.getEstado());
-            datos.setRut_Cliente(pedido.getCliente().getRut());
-            datos.setRut_Trabajador(pedido.getEncargado().getRut());
 
             System.out.println(datos);
             datosService.save(datos);
             for (Pasteles_Pedidos p : pasteles){
+                pastelesPedidoService.Delete(datos.getId());
+            }
+
+            for (Pasteles_Pedidos p : pasteles){
                 p.setPedido(datos.getId());
                 pastelesPedidoService.save(p);
             }
-            datosService.save(datos);
 
             return "ACTUALIZADO";
         }else {

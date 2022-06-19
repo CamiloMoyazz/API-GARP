@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "pedidos")
@@ -18,13 +19,12 @@ public class DatosPedido {
     private int id;
     @Column(name = "direccion_Entrega")
     private String direccion;
-    @Column(name = "fecha_Entrega")
-    private String fecha;
     @Column(name = "costo_Total")
     private int costo;
     private String observaciones_Pedido;
-    private String observaciones_Entrega;
     private String estado;
+    @Column(name = "fecha_Entrega")
+    private LocalDateTime fecha;
     private String rut_Cliente;
     private String rut_Trabajador;
 

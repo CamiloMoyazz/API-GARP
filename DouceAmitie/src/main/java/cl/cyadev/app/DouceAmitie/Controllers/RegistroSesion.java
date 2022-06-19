@@ -24,11 +24,7 @@ public class RegistroSesion {
         return "Hola desde Registro";
     }
 
-    //Trae a todos los Trabajadores y retorna una lista de ellos
-    @GetMapping("/getAll")
-    public List<Trabajador> getAll(){
-        return service.getAll();
-    }
+
     //Recibe un Json con un Trabajador y lo registra Encriptando su contraseña
     @PostMapping("/registrar")
     public String Registrar(@RequestBody Trabajador t){
@@ -43,23 +39,6 @@ public class RegistroSesion {
             return "Error, Intentalo Otra Vez";
         }
     }
-    //Actualiza un Trabajador
-    @PutMapping("/actualizar")
-    public String Actualizar(@RequestBody Trabajador t){
-        try{
-               service.update(t);
-               return "EXITO1!";
-        }catch (Exception ex){
-            return "ERROR!";
-        }
-    }
 
-    //Verifica si el Trabajador Existe y luego lo elimina.
-    @DeleteMapping("/eliminar/{rut}")
-    public String Eliminar(@PathVariable String rut){
-        Trabajador t = service.getById(rut);
-        service.delete(t);
-        return "Eliminado con Exito!";
-    }
 
 }

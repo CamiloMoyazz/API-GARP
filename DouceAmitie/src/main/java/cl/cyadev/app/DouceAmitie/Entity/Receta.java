@@ -22,6 +22,9 @@ public class Receta implements Serializable {
     private String imagen;
     @Column(name = "nombre")
     private String nombre;
+
+    @Column(name = "categoria")
+    private String categoria;
     @Column(name = "ingredientes")
     private String ingredientes;
     @Column(name = "preparacion")

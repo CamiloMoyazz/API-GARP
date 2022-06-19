@@ -29,6 +29,8 @@ public class GastoServiceImpl implements GastoService{
     public List<GastoDiario> getGastosByMes(String fecha) {
         int mesRequerido;
         int mesActual;
+        int year;
+        int actualYear;
         List<GastoDiario> gastos = repository.findAll();
         List<GastoDiario> gastosMes = new ArrayList<>();
 
@@ -42,8 +44,10 @@ public class GastoServiceImpl implements GastoService{
                 LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 mesRequerido = localDate.getMonthValue();
                 mesActual = localDate1.getMonthValue();
+                year = localDate.getYear();
+                actualYear = localDate1.getYear();
 
-            if(mesRequerido == mesActual){
+            if(mesRequerido == mesActual && year == actualYear){
                 gastosMes.add(g);
             }
             } catch (Exception ex) {

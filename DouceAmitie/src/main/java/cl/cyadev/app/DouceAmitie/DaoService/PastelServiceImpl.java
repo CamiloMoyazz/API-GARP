@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,26 @@ public class PastelServiceImpl implements PastelService{
     @Override
     public List<Pastel> getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public Pastel getPastelById(int id) {
+        Pastel p = new Pastel();
+        List<Pastel> pasteles = repository.findAll();
+        for(Pastel pa : pasteles){
+            if(pa.getIdPastel() == id){
+                p.setIdPastel(pa.getIdPastel());
+                p.setNombre(pa.getNombre());
+                p.setDescripcion(pa.getDescripcion());
+                p.setPrecio(pa.getPrecio());
+            }
+        }
+        if(p.getIdPastel() != 0){
+            return p;
+        }else {
+            return null;
+        }
+
     }
 
     @Override

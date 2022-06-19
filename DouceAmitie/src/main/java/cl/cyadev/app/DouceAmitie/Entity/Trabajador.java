@@ -27,6 +27,15 @@ public class Trabajador implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "telefono")
+    private String telefono;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "direccion")
+    private String direccion;
+
     @Column(name = "fecha_Ingreso")
     private String fechaIngreso;
     @Column(name = "id_Rol")

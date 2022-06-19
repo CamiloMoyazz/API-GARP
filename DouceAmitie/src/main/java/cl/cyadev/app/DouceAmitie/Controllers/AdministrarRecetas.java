@@ -27,6 +27,11 @@ public class AdministrarRecetas {
         return "Hola desde Recetas";
     }
 
+//   @GetMapping("/prueba")
+//   public Pastel hola(){
+//        return pastelService.getPastelById(2);
+//   }
+
     // --- METODOS PARA RECETAS ---
 
     @GetMapping("/getRecetas")

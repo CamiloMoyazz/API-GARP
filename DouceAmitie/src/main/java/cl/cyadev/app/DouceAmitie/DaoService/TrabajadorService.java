@@ -10,6 +10,8 @@ public interface TrabajadorService {
     String delete(Trabajador trabajador);
     String update(Trabajador trabajador);
     List<Trabajador> getAll();
+    List<Trabajador> getPasteleros();
+    List<Trabajador> getAdministradores();
     Trabajador getById(String rut);
     Boolean existeTrabajador(String rut);
     Optional<Trabajador> find(String rut);

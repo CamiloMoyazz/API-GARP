@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface PastelService {
     String save(Pastel pastel);
+    Pastel getPastelById(int id);
     String delete(int id);
     String update(Pastel pastel);
     List<Pastel> getAll();
