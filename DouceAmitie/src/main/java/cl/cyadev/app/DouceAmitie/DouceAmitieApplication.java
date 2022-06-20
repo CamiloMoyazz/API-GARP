@@ -15,13 +15,13 @@ public class DouceAmitieApplication {
 		SpringApplication.run(DouceAmitieApplication.class, args);
 	}
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer(){
-		return new WebMvcConfigurerAdapter() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry){
-				registry.addMapping("/**").allowedOrigins("/**").allowedMethods("*").allowedHeaders("*");
-			}
-		};
-	}
+//	@Bean
+//	public WebMvcConfigurer corsConfigurer(){
+//		return new WebMvcConfigurerAdapter() {
+//			@Override
+//			public void addCorsMappings(CorsRegistry registry){
+//				registry.addMapping("/**").allowedOrigins("/**").allowedOriginPatterns("*").allowedMethods("*").allowedHeaders("*");
+//			}
+//		};
+//	}
 }
