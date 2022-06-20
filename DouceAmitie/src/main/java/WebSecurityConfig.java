@@ -26,7 +26,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		
 		//Requerimiento de seguridad X-Frame-Options: SAMEORIGIN
-		http.headers().frameOptions().sameOrigin();	
+		http.headers().frameOptions().sameOrigin();
+
+		//CORS deshabilitado
+		http.cors().disable();
 	}
 	
 	/**
