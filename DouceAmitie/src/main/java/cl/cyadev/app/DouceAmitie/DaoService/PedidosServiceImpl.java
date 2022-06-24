@@ -50,7 +50,7 @@ public class PedidosServiceImpl implements PedidosService{
             Pedido pe = new Pedido();
             pe.setId_Pedido(p.getId());
             pe.setDatos_cliente(c.getRut()+
-                    ","+c.getNombre()+""+c.getApellidoPaterno()+
+                    ","+c.getNombre()+" "+c.getApellidoPaterno()+
                     ","+c.getEmail()+
                     ","+c.getTelefono());
             pe.setDireccion_Entrega(p.getDireccion());
@@ -67,7 +67,7 @@ public class PedidosServiceImpl implements PedidosService{
             pe.setObservaciones_Pedido(p.getObservaciones_Pedido());
             pe.setEstado(p.getEstado());
             pe.setDatos_encargado(t.getRut()+
-                    ","+t.getNombre()+""+t.getApellidoPaterno());
+                    ","+t.getNombre()+" "+t.getApellidoPaterno());
             pedidos.add(pe);
         }
         return pedidos;

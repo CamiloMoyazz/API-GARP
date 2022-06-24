@@ -21,14 +21,15 @@ public class InicioSesion {
     }
 
     @PostMapping("/login")
-    public boolean verificarCredenciales(@RequestBody Trabajador trabajador){
+    public Trabajador verificarCredenciales(@RequestBody Trabajador trabajador){
 
         if(service.existeTrabajador(trabajador.getRut())){
             Trabajador t = service.getById(trabajador.getRut());
             Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-            return argon2.verify(t.getPassword(), trabajador.getPassword());
-        }else {
-            return false;
+             if(argon2.verify(t.getPassword(), trabajador.getPassword())){
+                 return t;
+             }
         }
+        return null;
     }
 }

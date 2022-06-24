@@ -1,4 +1,7 @@
+package cl.cyadev.app.DouceAmitie;
+
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -9,6 +12,7 @@ import org.springframework.security.web.firewall.HttpFirewall;
  * The Class WebSecurityConfig.
  */
 @EnableWebSecurity
+@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	/**
@@ -24,11 +28,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		//Error 403 privado
 		http.csrf().disable();
-		
+
 		//Requerimiento de seguridad X-Frame-Options: SAMEORIGIN
 		http.headers().frameOptions().sameOrigin();
 
-		//CORS deshabilitado
+		//CORS Deshabilitado
 		http.cors().disable();
 	}
 	

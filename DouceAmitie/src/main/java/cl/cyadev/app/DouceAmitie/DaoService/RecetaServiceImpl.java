@@ -1,5 +1,6 @@
 package cl.cyadev.app.DouceAmitie.DaoService;
 
+import cl.cyadev.app.DouceAmitie.Entity.Pastel;
 import cl.cyadev.app.DouceAmitie.Entity.Receta;
 import cl.cyadev.app.DouceAmitie.Repository.RecetaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,27 @@ public class RecetaServiceImpl implements RecetaService{
     @Qualifier("recetaRepository")
     private RecetaRepository repository;
 
+    //TODO: MODIFICACIONES
+    @Autowired
+    @Qualifier("pastelService")
+    private PastelService pastelService;
+
     @Override
     public String save(Receta receta) {
-        repository.save(receta);
-        return "Ingresado con EXITO!";
+        try{
+            Pastel p = new Pastel();
+            p.setNombre(receta.getNombre());
+            p.setPrecio(receta.getPrecio());
+            p.setDescripcion(receta.getDescripcion());
+            pastelService.save(p);
+            receta.setIdReceta(p.getIdPastel());
+            repository.save(receta);
+
+            return "Ingresado con EXITO!";
+        }catch (Exception ex){
+            return "ERROR!";
+        }
+
     }
 
     @Override

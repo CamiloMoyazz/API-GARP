@@ -29,6 +29,13 @@ public class Receta implements Serializable {
     private String ingredientes;
     @Column(name = "preparacion")
     private String preparacion;
+
+    //TODO:CAMBIOS SE AGREGA PRECIO Y DESCRIPCION DE PASTEL
+    @Transient
+    private int precio;
+    @Transient
+    private String descripcion;
+
     @Column(name = "url_Video")
     private String urlVideo;
 
