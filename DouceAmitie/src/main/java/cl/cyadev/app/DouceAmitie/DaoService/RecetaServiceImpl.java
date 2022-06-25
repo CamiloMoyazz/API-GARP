@@ -30,7 +30,7 @@ public class RecetaServiceImpl implements RecetaService{
             p.setPrecio(receta.getPrecio());
             p.setDescripcion(receta.getDescripcion());
             pastelService.save(p);
-            receta.setIdReceta(p.getIdPastel());
+            receta.setId_Pastel(p.getIdPastel());
             repository.save(receta);
 
             return "Ingresado con EXITO!";
