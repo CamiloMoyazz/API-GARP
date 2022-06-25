@@ -19,6 +19,7 @@ public class RegistroSesion {
     @Qualifier("trabajadorService")
     private TrabajadorService service;
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/hola")
     public String Hola(){
         return "Hola desde Registro";
@@ -26,6 +27,7 @@ public class RegistroSesion {
 
 
     //Recibe un Json con un Trabajador y lo registra Encriptando su contraseña
+    @CrossOrigin(origins = "*")
     @PostMapping("/registrar")
     public String Registrar(@RequestBody Trabajador t){
         try{

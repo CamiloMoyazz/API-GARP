@@ -18,28 +18,33 @@ public class GestionPasteleros {
     @Autowired
     @Qualifier("trabajadorService")
     private TrabajadorService service;
+    @CrossOrigin(origins = "*")
     @GetMapping("/hola")
     public String Hola(){
       return "Hola desde pasteleros";
     }
 
     //Trae a todos los Trabajadores y retorna una lista de ellos
+    @CrossOrigin(origins = "*")
     @GetMapping("/getAll")
     public List<Trabajador> getAll(){
         return service.getAll();
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/getPasteleros")
     public List<Trabajador> pasteleros(){
         return service.getPasteleros();
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/getAdministradores")
     public List<Trabajador> admins(){
         return service.getAdministradores();
     }
 
     //Actualiza un Trabajador
+    @CrossOrigin(origins = "*")
     @PutMapping("/actualizar")
     public String Actualizar(@RequestBody Trabajador t){
         try{
@@ -51,6 +56,7 @@ public class GestionPasteleros {
     }
 
     //Verifica si el Trabajador Existe y luego lo elimina.
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/eliminar/{rut}")
     public String Eliminar(@PathVariable String rut){
         Trabajador t = service.getById(rut);

@@ -27,6 +27,7 @@ public class Estadisticas {
     @Qualifier("gananciaService")
     private GananciaService gananciaService;
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/hola")
     public String Hola(){
         return "Hola desde Estadisticas";
@@ -35,31 +36,36 @@ public class Estadisticas {
 
     // ------ SECCION GASTOS -------
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/getGastos")
     public List<GastoDiario> gastos(){
         return gastoService.getGastos();
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/prueba")
     public int prueba(){
        return 1;
     }
+    @CrossOrigin(origins = "*")
     @GetMapping("/getGasto/{fecha}")
     public List<GastoDiario> gastosMes(@PathVariable String fecha){
        return gastoService.getGastosByMes(fecha);
     }
+    @CrossOrigin(origins = "*")
     @PostMapping("/ingresarGasto")
     public String ingresarGasto(@RequestBody GastoDiario gastoDiario){
         gastoService.save(gastoDiario);
         return "EXITO!";
     }
-
+    @CrossOrigin(origins = "*")
     @PutMapping("/actualizarGasto")
     public String actualizarGasto(@RequestBody GastoDiario gastoDiario){
         gastoService.update(gastoDiario);
         return "EXITOO!";
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/eliminarGasto/{id}")
     public String eliminarGasto(@PathVariable int id){
         gastoService.delete(id);
@@ -68,24 +74,29 @@ public class Estadisticas {
 
     // ------ SECCION GANANCIAS -----
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/getGanancias")
     public List<GananciaDiaria> allGanancias(){
         return gananciaService.getAllGanancias();
     }
+    @CrossOrigin(origins = "*")
     @GetMapping("/getGanancia/{fecha}")
     public List<GananciaDiaria> gananciasMes(@PathVariable String fecha){
         return gananciaService.getByMes(fecha);
     }
+    @CrossOrigin(origins = "*")
     @PostMapping("/ingresarGanancia")
     public String ingresarGanancia(@RequestBody GananciaDiaria gananciaDiaria){
         gananciaService.save(gananciaDiaria);
         return "EXITO!";
     }
+    @CrossOrigin(origins = "*")
     @PutMapping("/actualizarGanancia")
     public String actualizarGanancia(@RequestBody GananciaDiaria gananciaDiaria){
         gananciaService.update(gananciaDiaria);
         return "ACTUALIZADO!!";
     }
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/eliminarGanancia/{id}")
     public String eliminarGanancia(@PathVariable int id){
         gananciaService.delete(id);

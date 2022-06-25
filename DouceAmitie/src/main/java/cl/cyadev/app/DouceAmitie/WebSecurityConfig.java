@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.headers().frameOptions().sameOrigin();
 
 		//CORS Deshabilitado
-		http.cors().disable();
+//		http.cors().disable();
 	}
 	
 	/**

@@ -22,6 +22,7 @@ public class AdministrarRecetas {
     @Qualifier("recetaService")
     private RecetaService recetaService;
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/hola")
     public String Hola(){
         return "Hola desde Recetas";
@@ -34,20 +35,24 @@ public class AdministrarRecetas {
 
     // --- METODOS PARA RECETAS ---
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/getRecetas")
     public List<Receta> recetas(){
         return recetaService.getRecetas();
     }
+    @CrossOrigin(origins = "*")
     @PostMapping("/ingresarReceta")
     public String ingresarReceta(@RequestBody Receta receta){
         recetaService.save(receta);
         return "INGRESADO!";
     }
+    @CrossOrigin(origins = "*")
     @PutMapping("/actualizarReceta")
     public String actualizarReceta(@RequestBody Receta receta){
         recetaService.update(receta);
         return "Actualizado!";
     }
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/eliminarReceta/{id}")
     public String eliminarReceta(@PathVariable int id){
         recetaService.delete(id);
@@ -55,20 +60,24 @@ public class AdministrarRecetas {
     }
 
     // --- METODOS PARA PASTELES ---
+    @CrossOrigin(origins = "*")
     @GetMapping("/getPasteles")
     public List<Pastel> pasteles(){
         return pastelService.getAll();
     }
+    @CrossOrigin(origins = "*")
     @PostMapping("/ingresarPastel")
     public String ingresarPastel(@RequestBody Pastel pastel){
         pastelService.save(pastel);
         return "Pastel Ingresado!";
     }
+    @CrossOrigin(origins = "*")
     @PutMapping("/actualizarPastel")
     public String actualizarPastel(@RequestBody Pastel pastel){
         pastelService.update(pastel);
         return "Pastel Actualizado!";
     }
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/eliminarPastel/{id}")
     public String eliminarPastel(@PathVariable int id){
         pastelService.delete(id);

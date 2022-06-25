@@ -15,11 +15,13 @@ public class InicioSesion {
     @Qualifier("trabajadorService")
     private TrabajadorService service;
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/hola")
     public String Hola(){
         return "Hola desde Login";
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/login")
     public Trabajador verificarCredenciales(@RequestBody Trabajador trabajador){
 
