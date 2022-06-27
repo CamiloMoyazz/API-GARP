@@ -29,10 +29,8 @@ public class GananciaImpl implements GananciaService{
 
     @Override
     public List<GananciaDiaria> getByMes(String fecha) {
-        int mesRequerido;
         int year;
         int actualYear;
-        int mesActual;
         List<GananciaDiaria> ganancias = repository.findAll();
         List<GananciaDiaria> gananciasMes = new ArrayList<>();
 
@@ -44,12 +42,10 @@ public class GananciaImpl implements GananciaService{
                 Date dateActual = formatter.parse(g.getFechaGanancia());
                 LocalDate localDate1 = dateActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                mesRequerido = localDate.getMonthValue();
-                mesActual = localDate1.getMonthValue();
                 year = localDate.getYear();
                 actualYear = localDate1.getYear();
 
-                if(mesRequerido == mesActual && year == actualYear){
+                if(year == actualYear){
                     gananciasMes.add(g);
                 }
             } catch (Exception ex) {
