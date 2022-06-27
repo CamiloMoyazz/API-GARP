@@ -87,7 +87,7 @@ public class PedidosServiceImpl implements PedidosService{
         datos.setFecha(pedido.getFecha_Entrega());
         List<Pasteles_Pedidos> pasteles = pedido.getPasteles();
         for (Pasteles_Pedidos p : pasteles){
-            costoTotal+=p.getValor();
+            costoTotal+=p.getValor()*p.getCantidad();
         }
         datos.setCosto(costoTotal);
         datos.setObservaciones_Pedido(pedido.getObservaciones_Pedido());
