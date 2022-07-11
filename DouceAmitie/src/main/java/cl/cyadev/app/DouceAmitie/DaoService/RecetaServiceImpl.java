@@ -22,6 +22,17 @@ public class RecetaServiceImpl implements RecetaService{
     @Qualifier("pastelService")
     private PastelService pastelService;
 
+    /**
+     *La funcion Save recibe un objeto receta como parametro, dentro de la funcion se validan que sus atributos
+     * sean validos. Una ves validados es creado el objeto receta y es persistido mediante la clase RecetaRepository
+     * con su instancia llamada repository.
+     *
+     * @param receta Recibe como parametro una clase de tipo Receta.
+     * @return Retorna un mensaje de EXITO si se ejecuta con exito el Try, si cae en catch retorna un mensaje de ERROR
+     * @author : Camilo Moya
+     * @version : 19/05/2022
+     *
+     */
     @Override
     public String save(Receta receta) {
         try{

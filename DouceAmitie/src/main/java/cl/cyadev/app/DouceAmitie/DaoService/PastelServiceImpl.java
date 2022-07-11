@@ -44,6 +44,16 @@ public class PastelServiceImpl implements PastelService{
         return repository.findAll();
     }
 
+    /**
+     * La funcion recibe como parametro un numero entero,este numero es usado para buscar si se encuentra en la base de datos
+     * gracias a la instancia de la clase PastelRespository con el metodo finAll().
+     * Si se valida todo correcto retorna un objeto pastel correspondiente al id entregado.
+     *
+     * @param id Recibe un parametro de tipo entero.
+     * @return Retorna un objeto pastel si que es valido y si no cumple con las validaciones retorna NULL
+     * @author : Camilo Moya
+     * @version : 20/05/2022
+     */
     @Override
     public Pastel getPastelById(int id) {
         Pastel p = new Pastel();

@@ -60,6 +60,15 @@ public class TrabajadorServiceImpl implements TrabajadorService{
         return pasteleros;
     }
 
+    /**
+     * La funcion no recibe parametros, tan solo busca en la base de datos si existen trabajador con numero de permisos
+     * igual a 1. Si es asi trea todas las coincidencias.
+     * Si la consulta SQL no tiene exito retorna una Lista Vacia.
+     *
+     * @return retorna una lista de Trabajadores con numero de permisos 1
+     * @author : Camilo Moya
+     * @version : 17/05/2022
+     */
     @Override
     public List<Trabajador> getAdministradores() {
         List<Trabajador> todos = repository.findAll();
@@ -78,6 +87,20 @@ public class TrabajadorServiceImpl implements TrabajadorService{
         return repository.getById(rut);
     }
 
+    /**
+     * La funcion recibe una cadena de texto que debe respetar un formato.
+     * utiliza la funcion findTrabajador programada unas lineas mas abajo.
+     * Esa funcion retorna un Optional que es un valor que puede tomar cualquier forma
+     * incluso un objeto.
+     * Se realiza una condicion isPresent a esa funcion find, si se cumple la condicion
+     * retorna True y si no retorna False.
+     *
+     * @param rut Recibe una cadena de texto que debe cumplir con el formato xxxxxxxx-x
+     * @return Retorna True si existe en la base de datos y si no retorna False
+     * @author : Camilo Moya
+     * @version : 17/05/2022
+     *
+     */
     @Override
     public Boolean existeTrabajador(String rut) {
         if(find(rut).isPresent()){
