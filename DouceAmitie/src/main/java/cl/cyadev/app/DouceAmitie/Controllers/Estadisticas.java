@@ -43,6 +43,14 @@ public class Estadisticas {
     }
 
     @CrossOrigin(origins = "*")
+    @GetMapping("/getGastosAnio/{anio}")
+    public List<GastoDiario> gastosAnio(@PathVariable String anio){
+        String fecha1 = "-01-01";
+        String fecha = anio + fecha1;
+        return gastoService.getGastosByMes(fecha);
+    }
+
+    @CrossOrigin(origins = "*")
     @GetMapping("/prueba")
     public int prueba(){
        return 1;
@@ -78,6 +86,13 @@ public class Estadisticas {
     @GetMapping("/getGanancias")
     public List<GananciaDiaria> allGanancias(){
         return gananciaService.getAllGanancias();
+    }
+    @CrossOrigin(origins = "*")
+    @GetMapping("/getGananciasAnio/{anio}")
+    public List<GananciaDiaria> gananciaAnio(@PathVariable String anio){
+        String fecha1 = "-01-01";
+        String fecha = anio + fecha1;
+        return gananciaService.getByMes(fecha);
     }
     @CrossOrigin(origins = "*")
     @GetMapping("/getGanancia/{fecha}")

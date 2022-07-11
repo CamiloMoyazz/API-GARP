@@ -27,6 +27,7 @@ public class GananciaImpl implements GananciaService{
         return repository.findAll();
     }
 
+
     @Override
     public List<GananciaDiaria> getByMes(String fecha) {
         int year;
