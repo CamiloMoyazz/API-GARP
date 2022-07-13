@@ -89,6 +89,7 @@ public class PedidosServiceImpl implements PedidosService{
         for (Pasteles_Pedidos p : pasteles){
             costoTotal+=p.getValor()*p.getCantidad();
         }
+        System.out.println(costoTotal);
         datos.setCosto(costoTotal);
         datos.setObservaciones_Pedido(pedido.getObservaciones_Pedido());
         datos.setEstado(pedido.getEstado());
@@ -150,6 +151,18 @@ public class PedidosServiceImpl implements PedidosService{
             return "Error";
         }
 
+    }
+
+    @Override
+    public String deleteByRut(String rut) {
+        List<DatosPedido> datosPedidos = datosService.datosPedido();
+        for (DatosPedido d : datosPedidos){
+            if(d.getRut_Trabajador().equalsIgnoreCase(rut)){
+                pastelesPedidoService.Delete(d.getId());
+                datosService.delete(d.getId());
+            }
+        }
+        return "Eliminados!";
     }
 
     @Override

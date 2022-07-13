@@ -1,7 +1,10 @@
 package cl.cyadev.app.DouceAmitie.Controllers;
 
+import cl.cyadev.app.DouceAmitie.DaoService.PedidosService;
 import cl.cyadev.app.DouceAmitie.DaoService.TrabajadorService;
 import cl.cyadev.app.DouceAmitie.Entity.Trabajador;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,9 @@ public class GestionPasteleros {
     @Autowired
     @Qualifier("trabajadorService")
     private TrabajadorService service;
+    @Autowired
+    @Qualifier("pedidosService")
+    private PedidosService pedidosService;
     @CrossOrigin(origins = "*")
     @GetMapping("/hola")
     public String Hola(){
@@ -48,6 +54,9 @@ public class GestionPasteleros {
     @PutMapping("/actualizar")
     public String Actualizar(@RequestBody Trabajador t){
         try{
+            Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+            String newPass = argon2.hash(1,1024,1,t.getPassword());
+            t.setPassword(newPass);
             service.update(t);
             return "EXITO1!";
         }catch (Exception ex){
@@ -60,6 +69,7 @@ public class GestionPasteleros {
     @DeleteMapping("/eliminar/{rut}")
     public String Eliminar(@PathVariable String rut){
         Trabajador t = service.getById(rut);
+        pedidosService.deleteByRut(rut);
         service.delete(t);
         return "Eliminado con Exito!";
     }

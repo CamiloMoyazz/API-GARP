@@ -2,10 +2,13 @@ package cl.cyadev.app.DouceAmitie.Repository;
 
 import cl.cyadev.app.DouceAmitie.Entity.DatosPedido;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.util.List;
 
 @Repository("datosPedidoRepository")
 public interface DatosPedidoRepository extends JpaRepository<DatosPedido, Serializable> {

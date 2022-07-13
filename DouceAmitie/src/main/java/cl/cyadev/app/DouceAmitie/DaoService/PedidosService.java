@@ -12,5 +12,6 @@ public interface PedidosService {
     String savePedido(Pedido pedido);
     String updatePedido(Pedido pedido);
     String deletePedido(int id);
+    String deleteByRut(String rut);
     Optional<DatosPedido> findPedido(int id);
 }

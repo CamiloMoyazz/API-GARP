@@ -17,6 +17,7 @@ public class TrabajadorServiceImpl implements TrabajadorService{
     @Autowired
     @Qualifier("trabajadorRepository")
     private TrabajadorRepository repository;
+
     @Override
     public String save(Trabajador trabajador) {
 
