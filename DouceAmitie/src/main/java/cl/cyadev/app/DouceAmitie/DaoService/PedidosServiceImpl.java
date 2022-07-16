@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +31,10 @@ public class PedidosServiceImpl implements PedidosService{
     @Autowired
     @Qualifier("pastelesPedidos")
     private PastelesPedidoService pastelesPedidoService;
+
+    @Autowired
+    @Qualifier("gananciaService")
+    private GananciaService gananciaService;
 
 
     @Override
@@ -62,7 +67,7 @@ public class PedidosServiceImpl implements PedidosService{
                 pasteles.add(pas.getNombre());
                 total += pape.getValor();
             }
-            pe.setValor_total(total);
+            pe.setValor_total(p.getCosto());
             pe.setNombresPasteles(pasteles);
             pe.setObservaciones_Pedido(p.getObservaciones_Pedido());
             pe.setEstado(p.getEstado());
@@ -105,7 +110,7 @@ public class PedidosServiceImpl implements PedidosService{
 
     @Override
     public String updatePedido(Pedido pedido) {
-        if(findPedido(pedido.getId_Pedido()).isPresent()){
+        if(findPedido(pedido.getId_Pedido()).isPresent()) {
             int costoTotal = 0;
 
             //Creamos los datos para la BD
@@ -116,8 +121,9 @@ public class PedidosServiceImpl implements PedidosService{
             datos.setDireccion(pedido.getDireccion_Entrega());
             datos.setFecha(pedido.getFecha_Entrega());
             List<Pasteles_Pedidos> pasteles = pedido.getPasteles();
-            for (Pasteles_Pedidos p : pasteles){
-                costoTotal+=p.getValor();
+            for (Pasteles_Pedidos p : pasteles) {
+                costoTotal += (p.getValor()*p.getCantidad());
+
             }
             datos.setCosto(costoTotal);
             datos.setObservaciones_Pedido(pedido.getObservaciones_Pedido());
@@ -125,21 +131,41 @@ public class PedidosServiceImpl implements PedidosService{
 
             System.out.println(datos);
             datosService.save(datos);
-            for (Pasteles_Pedidos p : pasteles){
+            for (Pasteles_Pedidos p : pasteles) {
                 pastelesPedidoService.Delete(datos.getId());
             }
 
-            for (Pasteles_Pedidos p : pasteles){
+            for (Pasteles_Pedidos p : pasteles) {
                 p.setPedido(datos.getId());
                 pastelesPedidoService.save(p);
             }
 
-            return "ACTUALIZADO";
-        }else {
-            return "ERROR!";
+            if (datos.getEstado().equals("Completado")) {
+                List<GananciaDiaria> listGanancias = gananciaService.getAllGanancias();
+                String[] fecha = LocalDateTime.now().toString().split("T");
+                String fechaTexto = fecha[0];
+                int ganancias = 0;
+                for (GananciaDiaria g : listGanancias) {
+                    if (g.getFechaGanancia().equals(fechaTexto)) {
+                        ganancias = g.getGananciaDiaria();
+                        g.setGananciaDiaria(ganancias + costoTotal);
+                        gananciaService.update(g);
+                    }
+                }
+                if (ganancias == 0) {
+                    GananciaDiaria ganancia = new GananciaDiaria();
+                    ganancia.setGananciaDiaria(costoTotal + ganancias);
+                    ganancia.setFechaGanancia(fechaTexto);
+                    gananciaService.save(ganancia);
+                }
+            }
+
+                return "ACTUALIZADO";
+            } else {
+                return "ERROR!";
+            }
         }
 
-    }
 
     @Override
     public String deletePedido(int id) {
